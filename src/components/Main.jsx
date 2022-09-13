@@ -13,6 +13,7 @@ const Main = () => {
       .then((res) => setMovies(res.data.results))
       .catch((err) => console.log(err));
   }, []);
+
   // console.log(movie);
 
   const truncateString = (str, num) => {
