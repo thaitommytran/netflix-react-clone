@@ -15,8 +15,6 @@ const Row = (props) => {
       .catch((err) => console.log(err));
   }, [fetchURL]);
 
-  // console.log(movies);
-
   const slideLeft = () => {
     var slider = document.getElementById("slider" + rowID);
     slider.scrollLeft = slider.scrollLeft - 500;
