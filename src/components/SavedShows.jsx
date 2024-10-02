@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
-import { UserAuth } from "../context/AuthContext";
-import { db } from "../firebase";
-import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSaveShow } from "../hooks/useSaveShow";
 
 const SavedShows = () => {
-  const [movies, setMovies] = useState([]);
-  const { user } = UserAuth();
+  const { savedShows, deleteShow } = useSaveShow();
 
   const slideLeft = () => {
     var slider = document.getElementById("slider");
@@ -19,28 +16,9 @@ const SavedShows = () => {
     slider.scrollLeft = slider.scrollLeft + 500;
   };
 
-  useEffect(() => {
-    onSnapshot(doc(db, "users", `${user?.email}`), (doc) => {
-      setMovies(doc.data()?.savedShows);
-    });
-  }, [user?.email]);
-
-  const movieRef = doc(db, "users", `${user?.email}`);
-
-  const deleteShow = async (passedID) => {
-    try {
-      const result = movies.filter((item) => item.id !== passedID);
-      await updateDoc(movieRef, {
-        savedShows: result
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <>
-      <h2 className="text-white font-bold md:text-xl p-4">My List</h2>
+      <h2 className="text-white font-bold md:text-xl p-4">My Shows</h2>
       <div className="relative flex items-center group">
         <MdChevronLeft
           onClick={slideLeft}
@@ -51,7 +29,7 @@ const SavedShows = () => {
           id={"slider"}
           className="w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide"
         >
-          {movies.map((item) => (
+          {savedShows.map((item) => (
             <div
               key={item.id}
               className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2"
