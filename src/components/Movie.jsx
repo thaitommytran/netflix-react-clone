@@ -37,7 +37,7 @@ const Movie = (props) => {
         alt={item?.title}
       />
       <div className="absolute top-0 left-0 w-full h-full hover:bg-black/80 opacity-0 hover:opacity-100 text-white">
-        <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center text-wrap p-4">
+        <p className="white-space-normal text-xs md:text-sm font-bold flex justify-center items-center h-full text-center text-wrap p-9">
           {item?.title || item?.name}
         </p>
         <p onClick={saveShow}>
